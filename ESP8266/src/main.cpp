@@ -10,19 +10,21 @@ CliComPort *uart0 = NULL;
 CliComPort *tcp = NULL;
 
 #define SSID "LA1"
-#define PWD "LA123456"
+#define PWD "LA1_2026"
 
 void setup() {
   cliCreateComPort(&uart0, esp8266comportCreateSerialTx(0, 76800));
   cliAddComPort(uart0);
-  cliCreateComPort(&tcp, esp8266comportCreateWiFiTcpSocketTx(SSID, PWD, 23));
-  cliAddComPort(tcp);
+
 
   cliPrintf(uart0, "Connecting to WiFi: %s ...\n", SSID);
   if (esp8266wifiConnect(SSID, PWD))
-    cliPrintf(uart0, "WiFi Connected: %s", WiFi.localIP().toString().c_str());
+    cliPrintf(uart0, "WiFi Connected: %s\n", WiFi.localIP().toString().c_str());
   else
     cliPrintf(uart0, "WiFi not connected");
+
+  cliCreateComPort(&tcp, esp8266comportCreateWiFiTcpSocketTx(SSID, PWD, 23));
+  cliAddComPort(tcp);
 
   cliPrintPrompt(uart0, TXT_GREEN);
   cliPrintPrompt(tcp, TXT_GREEN);

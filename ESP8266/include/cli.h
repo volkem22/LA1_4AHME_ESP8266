@@ -39,9 +39,7 @@ extern "C" {
 #ifndef PSTR
 #define PSTR(x) (x)
 #endif
-#ifndef printf_P
-#define printf_P(...) printf(__VA_ARGS__)
-#endif
+
 
 /****************************************************/
 // GLOBAL DEFINES
